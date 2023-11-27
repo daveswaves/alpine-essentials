@@ -16,7 +16,7 @@
             <template x-for="card in cards">
                 <div :style="'background: ' + (card.flipped ? card.color : '#999')"
                      class="h-32 cursor-pointer"
-                     @click="card.flipped = !card.flipped"
+                     @click="flipCard(card)"
                 >
                 </div>
             </template>
@@ -36,7 +36,21 @@
                     { color: 'red', flipped: false, cleared: false },
                     { color: 'blue', flipped: false, cleared: false },
                     { color: 'yellow', flipped: false, cleared: false }
-                ]
+                ],
+                
+                get flippedCards() {
+                    return this.cards.filter(card => card.flipped);
+                },
+                
+                flipCard(card) {
+                    card.flipped = !card.flipped;
+                    
+                    if (this.flippedCards.length === 2) {
+                        if (this.flippedCards[0]['color'] === this.flippedCards[1]['color'])
+                        
+                        console.log('Match');
+                    }
+                }
             };
         }
     </script>
