@@ -14,7 +14,8 @@
     <div x-data="game()" class="px-10 flex items-center justify-center min-h-screen">
         <div class="flex-1 grid grid-cols-4 gap-10">
             <template x-for="card in cards">
-                <div :style="'background: ' + (card.flipped ? card.color : '#999')"
+                <div x-show="!card.cleared"
+                     :style="'background: ' + (card.flipped ? card.color : '#999')"
                      class="h-32 cursor-pointer"
                      @click="flipCard(card)"
                 >
@@ -46,9 +47,11 @@
                     card.flipped = !card.flipped;
                     
                     if (this.flippedCards.length === 2) {
-                        if (this.flippedCards[0]['color'] === this.flippedCards[1]['color'])
+                        if (this.flippedCards[0]['color'] === this.flippedCards[1]['color']) {
+                            this.flippedCards.forEach(card => card.cleared = true);
+                            // console.log('Match');
+                        }
                         
-                        console.log('Match');
                     }
                 }
             };
